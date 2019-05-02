@@ -1,4 +1,6 @@
 import pygame
+from sprites import Blob, Food
+
 pygame.init()
 
 if __name__ == '__main__':
@@ -11,6 +13,11 @@ if __name__ == '__main__':
 	running = True
 	clock = pygame.time.Clock()
 
+	# blob sprites
+	blob_grp = pygame.sprite.Group()
+	blob = Blob((0, 0, 255))
+	blob_grp.add(blob)
+	
 	# infinite game loop
 	while running:
 		# fps
@@ -21,7 +28,10 @@ if __name__ == '__main__':
 				running = False
 				pygame.quit()
 
-		pygame.draw.rect(win, (100, 100, 100), [20, 20, 460, 460])
+		pygame.draw.rect(win, (200, 200, 200), [20, 20, 460, 460])
 		pygame.draw.rect(win, (0, 0, 0), [20, 20, 460, 460], 5)
-		pygame.display.update()
+
+		blob_grp.draw(win)
+
+		pygame.display.flip()
 
