@@ -15,8 +15,13 @@ if __name__ == '__main__':
 
 	# blob sprites
 	blob_grp = pygame.sprite.Group()
-	blob = Blob((0, 0, 255))
+	blob = [ Blob((0, 0, 255)) for i in range(50) ]
 	blob_grp.add(blob)
+
+	#food sprites
+	food_grp = pygame.sprite.Group()
+	food = [ Food() for i in range(25) ]
+	food_grp.add(food)
 	
 	# infinite game loop
 	while running:
@@ -32,6 +37,7 @@ if __name__ == '__main__':
 		pygame.draw.rect(win, (0, 0, 0), [20, 20, 460, 460], 5)
 
 		blob_grp.draw(win)
+		food_grp.draw(win)
 
 		pygame.display.flip()
 
