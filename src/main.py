@@ -7,6 +7,8 @@ if __name__ == '__main__':
 	# setting up the env in pygame 
 	width = 500
 	height = 500
+	num_blobs = 5
+	num_food = 25
 	win = pygame.display.set_mode((width, height))
 	pygame.display.set_caption('Natural Selection')
 	win.fill((255, 255, 255))
@@ -15,12 +17,12 @@ if __name__ == '__main__':
 
 	# blob sprites
 	blob_grp = pygame.sprite.Group()
-	blob = [ Blob((0, 0, 255)) for i in range(50) ]
+	blob = [ Blob((0, 0, 255)) for i in range(num_blobs) ]
 	blob_grp.add(blob)
 
 	#food sprites
 	food_grp = pygame.sprite.Group()
-	food = [ Food() for i in range(25) ]
+	food = [ Food() for i in range(num_food) ]
 	food_grp.add(food)
 	
 	# infinite game loop
@@ -38,6 +40,8 @@ if __name__ == '__main__':
 
 		blob_grp.draw(win)
 		food_grp.draw(win)
+
+		blob_grp.update()
 
 		pygame.display.flip()
 

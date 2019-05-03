@@ -2,7 +2,7 @@ import pygame
 from random import randint
 
 class Blob(pygame.sprite.Sprite):
-	def __init__(self, color, rad=15):
+	def __init__(self, color, rad=11):
 		pygame.sprite.Sprite.__init__(self)
 		#params
 		self.color = color
@@ -16,19 +16,52 @@ class Blob(pygame.sprite.Sprite):
 		#random placement
 		val = randint(0, 3)
 		if val == 0:
-			self.rect.midtop = (randint(20, 480), 20)
+			self.x = randint(40, 460)
+			self.y = 40
+			self.rect.midtop = (self.x, self.y)
 		elif val == 1:
-			self.rect.midright = (480, randint(20, 480))
+			self.x = 460
+			self.y = randint(40, 460)
+			self.rect.midright = (self.x, self.y)
 		elif val == 2:
-			self.rect.midbottom = (randint(20, 480), 480)
+			self.x = randint(40, 460)
+			self.y = 460
+			self.rect.midbottom = (self.x, self.y)
 		elif val == 3:
-			self.rect.midleft = (20, randint(20, 480))
+			self.x = 40
+			self.y = randint(40, 460)
+			self.rect.midleft = (self.x, self.y)
 
-	def move(self):
-		pass
+	def update(self):
+		val = randint(0, 1)
+		if val == 0:
+			if self.x <= 460:
+				self.x += 5
+			else:
+				self.x -= 5
+		else:
+			if self.x >= 40:
+				self.x -= 5
+			else:
+				self.x += 5
+
+		val = randint(0, 1)
+		if val == 0:
+			if self.y <= 460:
+				self.y += 5
+			else:
+				self.y -= 5
+		else:
+			if self.y >= 40:
+				self.y -= 5
+			else:
+				self.y += 5
+
+		self.rect.center = (self.x, self.y)
+
 	
 class Food(pygame.sprite.Sprite):
-	def __init__(self, color=(255, 0, 0), rad=5):
+	def __init__(self, color=(211, 0, 0), rad=5):
 		pygame.sprite.Sprite.__init__(self)
 		#params
 		self.color = color
@@ -40,6 +73,6 @@ class Food(pygame.sprite.Sprite):
 		pygame.draw.circle(self.image, self.color, [self.rad, self.rad], self.rad, 0)
 
 		#random placement
-		self.rect.center = (randint(50, 450), randint(50, 450))
+		self.rect.center = (randint(100, 400), randint(100, 400))
 
 		
