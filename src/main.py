@@ -7,7 +7,7 @@ if __name__ == '__main__':
 	# setting up the env in pygame 
 	width = 500
 	height = 500
-	num_blobs = 5
+	num_blobs = 50
 	num_food = 25
 	win = pygame.display.set_mode((width, height))
 	pygame.display.set_caption('Natural Selection')
@@ -35,13 +35,24 @@ if __name__ == '__main__':
 				running = False
 				pygame.quit()
 
+		#drawing the BG
 		pygame.draw.rect(win, (200, 200, 200), [20, 20, 460, 460])
 		pygame.draw.rect(win, (0, 0, 0), [20, 20, 460, 460], 5)
 
+		#Updates
+		blob_grp.update()
+		#food hit check
+		food_hit = pygame.sprite.groupcollide(blob_grp, food_grp, False, False, pygame.sprite.collide_circle)
+		for b, f in food_hit.items():
+			if b.food_count == 0:
+				f[0].kill()
+				b.food_count += 1
+			else:
+				pass
+		#drawing the blobs and food
 		blob_grp.draw(win)
 		food_grp.draw(win)
 
-		blob_grp.update()
-
+		#display updates
 		pygame.display.flip()
 

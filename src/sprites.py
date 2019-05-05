@@ -7,6 +7,8 @@ class Blob(pygame.sprite.Sprite):
 		#params
 		self.color = color
 		self.rad = rad
+		self.food_count = 0
+		self.energy = 100
 		#pygame sprite creation
 		self.image = pygame.Surface([self.rad*2, self.rad*2])
 		self.image.fill((200, 200, 200))
@@ -33,32 +35,41 @@ class Blob(pygame.sprite.Sprite):
 			self.rect.midleft = (self.x, self.y)
 
 	def update(self):
-		val = randint(0, 1)
-		if val == 0:
-			if self.x <= 460:
-				self.x += 5
+		#moving
+		if self.food_count != 1:
+			val = randint(0, 1)
+			if val == 0:
+				if self.x <= 460:
+					self.x += 5
+				else:
+					self.x -= 5
 			else:
-				self.x -= 5
-		else:
-			if self.x >= 40:
-				self.x -= 5
-			else:
-				self.x += 5
+				if self.x >= 40:
+					self.x -= 5
+				else:
+					self.x += 5
 
-		val = randint(0, 1)
-		if val == 0:
-			if self.y <= 460:
-				self.y += 5
+			val = randint(0, 1)
+			if val == 0:
+				if self.y <= 460:
+					self.y += 5
+				else:
+					self.y -= 5
 			else:
-				self.y -= 5
+				if self.y >= 40:
+					self.y -= 5
+				else:
+					self.y += 5
 		else:
-			if self.y >= 40:
-				self.y -= 5
-			else:
-				self.y += 5
+			pass
 
 		self.rect.center = (self.x, self.y)
 
+		#energy 
+		if self.food_count != 1:
+			self.energy -= 0.05
+		if self.energy == 0:
+			self.kill()
 	
 class Food(pygame.sprite.Sprite):
 	def __init__(self, color=(211, 0, 0), rad=5):
