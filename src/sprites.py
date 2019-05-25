@@ -8,30 +8,32 @@ class Blob(pygame.sprite.Sprite):
 		self.color = color
 		self.rad = rad
 		self.food_count = 0
-		self.energy = 100
+		self.energy = randint(150, 175)
+		self.x = 0
+		self.y = 0
 		#pygame sprite creation
 		self.image = pygame.Surface([self.rad*2, self.rad*2])
 		self.image.fill((200, 200, 200))
 		self.rect = self.image.get_rect()
 		pygame.draw.circle(self.image, self.color, [self.rad, self.rad], self.rad, 0)
 
-		#random placement
+	def start_pos(self): #random placement
 		val = randint(0, 3)
 		if val == 0:
-			self.x = randint(40, 460)
+			self.x = randint(40, 710)
 			self.y = 40
 			self.rect.midtop = (self.x, self.y)
 		elif val == 1:
-			self.x = 460
-			self.y = randint(40, 460)
+			self.x = 710
+			self.y = randint(40, 710)
 			self.rect.midright = (self.x, self.y)
 		elif val == 2:
-			self.x = randint(40, 460)
-			self.y = 460
+			self.x = randint(40, 710)
+			self.y = 710
 			self.rect.midbottom = (self.x, self.y)
 		elif val == 3:
 			self.x = 40
-			self.y = randint(40, 460)
+			self.y = randint(40, 710)
 			self.rect.midleft = (self.x, self.y)
 
 	def update(self):
@@ -39,7 +41,7 @@ class Blob(pygame.sprite.Sprite):
 		if self.food_count != 1:
 			val = randint(0, 1)
 			if val == 0:
-				if self.x <= 460:
+				if self.x <= 710:
 					self.x += 5
 				else:
 					self.x -= 5
@@ -51,7 +53,7 @@ class Blob(pygame.sprite.Sprite):
 
 			val = randint(0, 1)
 			if val == 0:
-				if self.y <= 460:
+				if self.y <= 710:
 					self.y += 5
 				else:
 					self.y -= 5
@@ -67,7 +69,7 @@ class Blob(pygame.sprite.Sprite):
 
 		#energy 
 		if self.food_count != 1:
-			self.energy -= 0.05
+			self.energy -= 0.4
 		if self.energy == 0:
 			self.kill()
 	
@@ -84,6 +86,6 @@ class Food(pygame.sprite.Sprite):
 		pygame.draw.circle(self.image, self.color, [self.rad, self.rad], self.rad, 0)
 
 		#random placement
-		self.rect.center = (randint(100, 400), randint(100, 400))
+		self.rect.center = (randint(150, 600), randint(150, 600))
 
 		
